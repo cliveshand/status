@@ -1,0 +1,37 @@
+include:
+  - project: "platform/promotion"
+    file: "ci/container.yml"
+  - template: Security/SAST.gitlab-ci.yml
+
+stages:
+  - ".pre"
+  - build
+  - test
+  - "♻️ ci - continuous integration"
+  - "📮 cd - continuous delivery"
+
+variables:
+  ONLY_CONTAINER: "true"
+  UPSTREAM_KANIKO: "true"
+  RUNMENOWPLZIHATEGITLAB: "true"
+  # UPSTREAM_REPOSITORY_URL: "https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.advana.boozallencsn.com/platform/prototypes/status.git"
+  UPSTREAM_PROJECT_DIR: "."
+  UPSTREAM_PROJECT_PATH: "platform/prototypes/status"
+  AUTO_DEVOPS_BUILD_IMAGE_EXTRA_ARGS: >-
+      --build-arg=REGISTRY=${CI_REGISTRY}
+  ENABLE_CACHE: "false"
+
+.promotion-pipeline-run-conditions:
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+🦺 container-lint:
+  extends: ".container-lint"
+
+container-delivery-trigger:
+  extends: ".container-delivery-trigger"
+
+#trigger:
+#  extends: 
+#    - ".container-delivery-trigger"
+#    - ".promotion-pipeline-run-conditions"

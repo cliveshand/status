@@ -1,0 +1,99 @@
+h1 { color: white; font-family: 'Montseratt';}
+header, footer, main { 
+	margin: 0 0; 
+	padding: 0 0; 
+	max-width: none; 
+}
+
+br { display: block; }
+.notification-banner {
+	text-align: center;
+	justify-content: center;
+	background-color: $color-up;
+	font-weight: bold;
+	font-size: 20px;
+	color: white;
+	height: fit-content;
+	width: 100%;
+	margin: 0;
+}
+nav { border: 2px solid $brand-color-secondary; margin-bottom: 0; }
+nav { 
+	color: white; 
+	background-color: black; 
+	display:flex; 
+	flex-direction: column;
+	flex-wrap: wrap;
+	padding: 2% 50px;
+	justify-content: left;
+	align-items: start;
+	border-style: none;
+	background-image: url("/images/banners/Analytics.webp");
+	background-repeat: no-repeat;
+	background-size: 100% 100% ;
+}
+
+nav a { color: white; }
+nav a:hover { color: $brand-color-secondary; }
+
+nav .logos { 
+	align-items: center ;
+	display:flex; 
+	justify-content: space-between;
+	width: 300px;
+	picture { width: 50%; margin-left: 20px; padding: 0;}
+
+	#advana_logo img { margin: 0; padding: 0; width:auto; height: 58px; }
+}
+nav menu li menu { box-shadow: $brand-color-neutral var(--box-shadow); background: $brand-color-primary; }
+a[href^="http://"]::after, a[href^="https://"]::after {
+	content: "#{$link-external}";
+}
+
+.text {
+	margin-left: 30px;
+}
+
+.collapse {
+	display: contents;
+}
+
+th {
+	background-color: $brand-color-primary;
+}
+
+table {
+	border-style: none;
+}
+table tr td[data-status]:first-child { 
+	text-transform: uppercase;
+}
+
+td[data-status="operational"] { color: white; background-color: $color-up;}
+td[data-status="down"] { color:white; background-color: $color-down;}
+td[data-status="degraded"] { background-color: $color-degraded; }
+td[data-status="unknown"] { color: white;background-color: $color-unknown; }
+
+hr { margin: 0; }
+table td, table th { text-align: left; }
+table tr:nth-child(odd){ background-color:#EDEFF0;}
+table tr:nth-child(even){ background-color:#DADBDE;}
+
+table > thead > tr > th { background-color: $brand-color-primary; }
+table > tbody > tr > th { text-transform: capitalize; }
+
+footer > div { 
+	background-color: black; 
+	display: flex;
+	justify-items: center;
+	align-items: center;
+	padding-left: 25px;
+	margin-top: 20px;
+}
+footer > div {margin-top: 0px};
+footer > div > picture,img { height: 3em; margin-left: 20px;}
+footer > div > h1 {color:white;}
+footer > div > ul { display: inline-block; }
+ul > li > a > figure { display: inline-block; }
+ul > li > a > figure::before { display: inline-block; vertical-align: middle; width: 2em; height: 2em; content: ""; -webkit-mask-position: center; -webkit-mask-repeat: no-repeat; mask: center no-repeat; }
+ul > li > a > figure > figcaption { display: inline; text-transform: capitalize; padding: .5em; }

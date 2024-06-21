@@ -1,0 +1,18 @@
+$cdn-katex: "{{ .Site.Params.cdn.katex }}";
+$cdn-mdi: "{{ .Site.Params.cdn.mdi }}";
+$cdn-si: "{{ .Site.Params.cdn.si }}";
+
+{{ $mvp := "npm/mvp.css@1/mvp.min.css" }}
+{{ $classless := "gh/emareg/classlesscss@v1.0/docs/classless.min.css" }}
+{{ $classless_tiny := "gh/emareg/classlesscss@v1.0/docs/classless-tiny.min.css" }}
+
+{{ $url_classless := printf "%s/%s" .Site.Params.cdn.base $mvp }}
+{{ $remote := resources.GetRemote $url_classless }}
+{{ $remote.Content }}
+//@import url("https://cdn.jsdelivr.net/npm/mvp.css@1/mvp.min.css");
+
+@import "fonts";
+@import "compat";
+@import "media";
+@import "brand";
+@import "layout";

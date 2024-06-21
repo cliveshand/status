@@ -1,0 +1,75 @@
+{{- define "main" -}}
+	<section>
+		<div class="app-info-container">
+		<p class="app-info-text">This app uses static data that is queried every {{ getenv "TIME_WINDOW" }} minutes. The App will refresh your browser every 5 mins, or you can do so manually with the reload button to the side.</p>
+		<button type="button" class="button app-info-button" onclick="refreshBrowser()"><image src="images/icons/refresh.png" id="app-info-image" /></button>
+		</div>
+
+	</section>
+	<section>
+		<article style="padding: 10px;">To get more detailed information via dashboards, visit and login to <a href={{ getenv "GRAFANA_LOGIN_URL" }} target="_blank">Grafana</a></article>
+	</section>
+	<section>
+		<table>
+			<thead>
+				<tr>
+					<th scope="col">Status</th>
+					<th scope="col">Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td label="Status" data-status="operational">Operational</td>
+					<td label="Description">Service fully available with no issues in the last 15 minutes</td>
+				</tr>
+				<tr>
+					<td label="Status" data-status="degraded">DEGRADED</td>
+					<td label="Description">Service degradation detected in the last 15 minutes (latency or intermittent outtage)</td>
+				</tr>
+				<tr>
+					<td label="Status" data-status="unknown">UNKNOWN</td>
+					<td label="Description">Service evaluation is currently unavailable</td>
+				</tr>
+				<tr>
+					<td label="Status" data-status="down">DOWN</td>
+					<td label="Description">Service outage detected</td>
+				</tr>
+			</tbody>
+		</table>
+		<caption><h3>Status - as of {{ now.Format "Mon, 02 Jan 2006 15:04:05 MST" }}</h3></caption>
+		{{ range $community_k, $community_v := .Site.Data.status.communities -}}
+			{{ range $portfolio_k, $portfolio_v := $community_v.portfolios }}
+				{{ range $usecase_k, $usecase_v := $portfolio_v.usecases }}
+					<button type="button" class="custom-button" onclick="alterTableDisplay(this.nextElementSibling.id, this, `{{$community_k | humanize}} | {{$portfolio_k | humanize}} | {{$usecase_k | humanize}}`)">Collapse - {{$community_k | humanize}} | {{$portfolio_k | humanize}} | {{$usecase_k | humanize}}</button>
+					<table id="{{$community_k}}-{{$portfolio_k}}-{{$usecase_k}}-table">
+						<thead>
+							<tr>
+								<th colspan="100%">{{ $community_k | humanize}} |
+									{{ $portfolio_k | humanize}} |
+									{{ $usecase_k | humanize }}
+								</th>
+							</tr>
+							<tr>
+								<th onClick="sortTable(this.parentNode.parentNode.nextElementSibling.id, 0)">Status</th>
+								<th>App Name</th>
+								<th>URL</th>
+							</tr>
+						</thead>
+						<tbody id="{{$community_k}}-{{$portfolio_k}}-{{$usecase_k}}-data">
+							{{ range $k,$v :=  $usecase_v.app_statuses }}
+								<tr>
+									<td label="Status" data-status="{{.status}}">{{upper .status}}</td>
+									<td>{{ .display_name }}</td>
+									<td>{{ $k }}</td>
+								</tr>
+							{{- end }}
+						</tbody>
+					</table>
+				{{- end }}
+			{{- end }}
+		{{- end }}
+	</section>
+	<section>
+		<article style="padding: 10px;">To get more detailed information via dashboards, visit and login to <a href={{ getenv "GRAFANA_LOGIN_URL" }} target="_blank">Grafana</a></article>
+	</section>
+{{- end -}}

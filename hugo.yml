@@ -1,0 +1,53 @@
+disableKinds:
+  - taxonomy
+title: Advana Status
+baseURL: https://status.advana.us
+languageCode: en-us
+timeZone: Local
+disableHugoGeneratorInject: true
+enableRobotsTXT: true
+enableEmoji: true
+enableInlineShortcodes: true
+pluralizelisttitles: false
+relativeURLs: true
+uglyURLs: false
+titleCaseStyle: AP
+sectionPagesMenu: nav
+googleAnalytics: null
+build:
+  writeStats: false
+  noJSConfigInAssets: false
+  useResourceCacheWhen: fallback
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+module:
+  imports:
+#    - path: github.com/jpanther/congo
+menu:
+  nav:
+    - identifier: contact
+      name: Contact
+      url: #
+    - parent: contact
+      name: Questions
+      url: #form-question
+    - parent: contact
+      name: Notify
+      url: #form-notify
+
+params:
+  cdn:
+    base: "https://cdn.jsdelivr.net"
+    katex: "https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.css"
+    mdi: "https://cdn.jsdelivr.net/npm/@mdi/svg@7.0.96/svg"
+    si: "https://cdn.jsdelivr.net/npm/simple-icons@v7/icons"
+  gmapAPI: >-
+    https://maps.googleapis.com/maps/api/js?key=
+
+security:
+  funcs:
+    getenv:
+    - ^GRAFANA_
+    - ^TIME_

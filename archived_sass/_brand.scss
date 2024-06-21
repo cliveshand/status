@@ -1,0 +1,30 @@
+$color-airdrop:		#009490;
+$color-ballistic:	#33528A;
+$color-foxtrot:		#001F60;
+$color-charlie:		#021D49;
+$color-recon:		#2E1A46;
+$color-datum:		#490E67;
+
+$color-up:			#216F0F;
+$color-down:		#A1212D;
+$color-degraded:	#F8CE46;
+$color-unknown:		#009490;
+
+$font-default: Noto Sans;
+$menu-stacked: "☰";
+$menu-submenu-inactive: "▸";
+$menu-submenu-active: "▾";
+$link: "🔗";
+$link-external: "";
+
+$brand-font:			$font-default;
+$brand-color-primary:	$color-ballistic;
+$brand-color-secondary:	$color-airdrop;
+$brand-color-accent:	$color-datum;
+$brand-color-neutral:	$color-foxtrot;
+
+
+:root {
+	--font-default: #{$font-default};
+	--font-family: #{$font-default};
+}

@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+{{ partial "html/head.html" . -}}
+</head>
+<body>
+<header>
+{{ partial "html/header.html" . -}}
+</header>
+<main>
+{{ block "main" . }}
+{{ end }}
+</main>
+<footer>
+{{ partial "html/footer.html" . -}}
+</footer>
+</body>
+</html>

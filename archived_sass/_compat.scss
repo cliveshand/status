@@ -1,0 +1,71 @@
+menu menu {
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+}
+
+menu li {
+  padding: 0.2rem 0;
+}
+
+nav {
+    align-items: center;
+    display: flex;
+    font-weight: bold;
+    justify-content: space-between;
+    margin-bottom: 7rem;
+	menu {
+    	list-style: none;
+		//margin: 0;
+    	padding: 0;
+		//display: grid;
+
+		li:has(> menu)::after {
+			content: "▸";
+		}
+		li:has(> menu):hover::after {
+			content: "▾";
+		}
+
+		li:hover menu, li:focus menu, li:active menu {
+			/* Nav Dropdown */
+			display: block;
+		}
+
+		li {
+			display: inline-block;
+			margin: 0 0.5rem;
+			position: relative;
+			text-align: left;
+
+			menu::before {
+				/* fill gap above to make mousing over them easier */
+				content: "";
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: -0.5rem;
+				height: 0.5rem;
+			}
+
+			menu {
+				background: var(--color-bg);
+				border: 1px solid var(--color-bg-secondary);
+				border-radius: var(--border-radius);
+				box-shadow: var(--box-shadow) var(--color-shadow);
+				display: none;
+				height: auto;
+				left: -2px;
+				padding: 0.5rem 1rem;
+				position: absolute;
+				top: 1.7rem;
+				white-space: nowrap;
+				width: auto;
+				z-index: 1;
+
+				li, li a {
+   					 display: block;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,112 @@
+//@media screen and (max-width: 767px) {
+//	table, thead, tbody, tr, th, td { display: block; }
+//}
+/*
+@media all, print, screen
+@media (prefers-color-scheme: dark | light
+fullscreen	All of the available display area is used and no user agent chrome is shown.	standalone
+standalone	The application will look and feel like a standalone application. This can include the application having a different window, its own icon in the application launcher, etc. In this mode, the user agent will exclude UI elements for controlling navigation, but can include other UI elements such as a status bar.	minimal-ui
+minimal-ui	The application will look and feel like a standalone application, but will have a minimal set of UI elements for controlling navigation. The elements will vary by browser.	browser
+browser	The application opens in a conventional browser tab or new window, depending on the browser and platform.	(none)
+window-controls-overlay	In this mode, the application looks and feels like a standalone desktop application, and the Window Controls Overlay feature is enabled.	(none)
+media (isphone)
+media (istablet)
+media (isglasses)
+media (ismonitor)
+media (orientation: portrait)
+media (orientation: landscape)
+*/
+
+@media (min-width: 300px) {
+  :root {
+    --width: 250px;
+  }
+}
+
+@media (min-width: 600px) {
+  :root {
+    --width: 450px;
+  }
+}
+
+@media (max-width: 600px) {
+}
+
+@media (max-width: 1024px) {
+	table thead {
+			display: none;
+	}
+	table th,
+	table td {
+		display: flex;
+	}
+	table th::before,
+	table td::before {
+			content: attr(label);
+			font-weight: bold;
+			width: 120px;
+			min-width: 120px;
+	}
+}
+
+
+// https://css-tricks.com/snippets/css/media-queries-for-standard-devices/
+// /*iPhone 14*/
+@media only screen
+and (width: 390px) 
+and (device-height: 844px)
+and (-webkit-device-pixel-ratio: 3) { }
+
+/*iPhone 14 Pro*/
+@media only screen
+    and (width: 393px) 
+    and (device-height: 852px)
+    and (-webkit-device-pixel-ratio: 3) { }
+
+/*iPhone 14 Pro Max*/
+@media only screen
+    and (device-width: 430px) 
+    and (device-height: 932px) 
+    and (-webkit-device-pixel-ratio: 3) { }
+
+/* iphone 13 mini */
+/* 2340x1080 pixels at 476ppi */
+@media only screen 
+    and (device-width: 375px) 
+    and (device-height: 812px) 
+    and (-webkit-device-pixel-ratio: 3) { }
+
+/* iphone 13 and 13 Pro */
+	/* 2532x1170 pixels at 460ppi */
+@media only screen 
+    and (device-width: 390px) 
+    and (device-height: 844px) 
+    and (-webkit-device-pixel-ratio: 3) { }
+
+/* iphone 13 Pro Max */
+	/* 2778x1284 pixels at 458ppi */
+@media only screen 
+    and (device-width: 428px) 
+    and (device-height: 926px) 
+    and (-webkit-device-pixel-ratio: 3) { }
+
+/* iphone 11 */
+/* 1792x828px at 326ppi */
+@media only screen 
+    and (device-width: 414px) 
+    and (device-height: 896px) 
+    and (-webkit-device-pixel-ratio: 2) { }
+
+/* iphone 11 Pro */
+/* 2436x1125px at 458ppi */
+@media only screen 
+    and (device-width: 375px) 
+    and (device-height: 812px) 
+    and (-webkit-device-pixel-ratio: 3) { }
+
+/* iphone 11 Pro Max */
+/* 2688x1242px at 458ppi */
+@media only screen 
+    and (device-width: 414px) 
+    and (device-height: 896px) 
+    and (-webkit-device-pixel-ratio: 3) { }

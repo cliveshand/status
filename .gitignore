@@ -2,8 +2,6 @@ status
 config.json
 query_cfg.json
 
-data/
-public/
 
 .hugo_build.lock
 

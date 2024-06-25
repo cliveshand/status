@@ -1,75 +1,327 @@
-{{- define "main" -}}
-	<section>
-		<div class="app-info-container">
-		<p class="app-info-text">This app uses static data that is queried every {{ getenv "TIME_WINDOW" }} minutes. The App will refresh your browser every 5 mins, or you can do so manually with the reload button to the side.</p>
-		<button type="button" class="button app-info-button" onclick="refreshBrowser()"><image src="images/icons/refresh.png" id="app-info-image" /></button>
-		</div>
+<!doctype html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/main.css">
+<title></title>
+</head>
+<body>
+<header>
+<div class="notification-banner">
+CSN
+</div><nav>
+        <div class="logos">
+                <picture>
+                        <source srcset="./images/logos/DOD_color.webp" type="image/webp">
+                        <source srcset="./images/logos/DOD_color.png" type="image/png">
+                        <img src="DOD_color.png" alt="DoD Logo">
+                </picture>
+                <picture>
+                        <source srcset="./images/logos/cdaoLogo.webp" type="image/webp">
+                        <source srcset="./images/logos/cdaoLogo.png" type="image/png">
+                        <img src="cdaoLogo.png" alt="DoD Logo">
+                </picture>
+                <picture id="advana_logo">
+                        <source srcset="./images/logos/AdvanaLightTheme.webp" type="image/webp">
+                        <source srcset="./images/logos/logo-advana.png" type="image/png">
+                        <img src="logo-advana.png" alt="DoD Logo">
+                </picture>
+        </div>
+        <h1>Platform Service Health</h1>
 
-	</section>
-	<section>
-		<article style="padding: 10px;">To get more detailed information via dashboards, visit and login to <a href={{ getenv "GRAFANA_LOGIN_URL" }} target="_blank">Grafana</a></article>
-	</section>
-	<section>
-		<table>
-			<thead>
-				<tr>
-					<th scope="col">Status</th>
-					<th scope="col">Description</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td label="Status" data-status="operational">Operational</td>
-					<td label="Description">Service fully available with no issues in the last 15 minutes</td>
-				</tr>
-				<tr>
-					<td label="Status" data-status="degraded">DEGRADED</td>
-					<td label="Description">Service degradation detected in the last 15 minutes (latency or intermittent outtage)</td>
-				</tr>
-				<tr>
-					<td label="Status" data-status="unknown">UNKNOWN</td>
-					<td label="Description">Service evaluation is currently unavailable</td>
-				</tr>
-				<tr>
-					<td label="Status" data-status="down">DOWN</td>
-					<td label="Description">Service outage detected</td>
-				</tr>
-			</tbody>
-		</table>
-		<caption><h3>Status - as of {{ now.Format "Mon, 02 Jan 2006 15:04:05 MST" }}</h3></caption>
-		{{ range $community_k, $community_v := .Site.Data.status.communities -}}
-			{{ range $portfolio_k, $portfolio_v := $community_v.portfolios }}
-				{{ range $usecase_k, $usecase_v := $portfolio_v.usecases }}
-					<button type="button" class="custom-button" onclick="alterTableDisplay(this.nextElementSibling.id, this, `{{$community_k | humanize}} | {{$portfolio_k | humanize}} | {{$usecase_k | humanize}}`)">Collapse - {{$community_k | humanize}} | {{$portfolio_k | humanize}} | {{$usecase_k | humanize}}</button>
-					<table id="{{$community_k}}-{{$portfolio_k}}-{{$usecase_k}}-table">
-						<thead>
-							<tr>
-								<th colspan="100%">{{ $community_k | humanize}} |
-									{{ $portfolio_k | humanize}} |
-									{{ $usecase_k | humanize }}
-								</th>
-							</tr>
-							<tr>
-								<th onClick="sortTable(this.parentNode.parentNode.nextElementSibling.id, 0)">Status</th>
-								<th>App Name</th>
-								<th>URL</th>
-							</tr>
-						</thead>
-						<tbody id="{{$community_k}}-{{$portfolio_k}}-{{$usecase_k}}-data">
-							{{ range $k,$v :=  $usecase_v.app_statuses }}
-								<tr>
-									<td label="Status" data-status="{{.status}}">{{upper .status}}</td>
-									<td>{{ .display_name }}</td>
-									<td>{{ $k }}</td>
-								</tr>
-							{{- end }}
-						</tbody>
-					</table>
-				{{- end }}
-			{{- end }}
-		{{- end }}
-	</section>
-	<section>
-		<article style="padding: 10px;">To get more detailed information via dashboards, visit and login to <a href={{ getenv "GRAFANA_LOGIN_URL" }} target="_blank">Grafana</a></article>
-	</section>
-{{- end -}}
+</nav>
+<hr />
+</header>
+<main>
+<section>
+                <div class="app-info-container">
+                <p class="app-info-text">This app uses static data that is queried every 15 minutes. The App will refresh your browser every 5 mins, or you can do so manually with the reload button to the side.</p>
+                <button type="button" class="button app-info-button" onclick="refreshBrowser()"><image src="images/icons/refresh.png" id="app-info-image" /></button>
+                </div>
+
+        </section>
+        <section>
+                <article style="padding: 10px;">To get more detailed information via dashboards, visit and login to <a href=http://grafana.cndcompliance.com  target="_blank">Grafana</a></article>
+        </section>
+        <section>
+                <table>
+                        <thead>
+                                <tr>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Description</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                        <td label="Status" data-status="operational">Operational</td>
+                                        <td label="Description">Service fully available with no issues in the last 15 minutes</td>
+                                </tr>
+                                <tr>
+                                        <td label="Status" data-status="degraded">DEGRADED</td>
+                                        <td label="Description">Service degradation detected in the last 15 minutes (latency or intermittent outtage)</td>
+                                </tr>
+                                <tr>
+                                        <td label="Status" data-status="unknown">UNKNOWN</td>
+                                        <td label="Description">Service evaluation is currently unavailable</td>
+                                </tr>
+                                <tr>
+                                        <td label="Status" data-status="down">DOWN</td>
+                                        <td label="Description">Service outage detected</td>
+                                </tr>
+                        </tbody>
+                </table>
+                <caption><h3>Status - as of Thu, 20 Jun 2024 20:42:01 UTC</h3></caption>
+
+
+                                        <button type="button" class="custom-button" onclick="alterTableDisplay(this.nextElementSibling.id, this, `Advana | Platform | A2 et`)">Collapse - Advana | Platform | A2 et</button>
+                                        <table id="Advana-Platform-A2ET-table">
+                                                <thead>
+                                                        <tr>
+                                                                <th colspan="100%">Advana |
+                                                                        Platform |
+                                                                        A2 et
+                                                                </th>
+                                                        </tr>
+                                                        <tr>
+                                                                <th onClick="sortTable(this.parentNode.parentNode.nextElementSibling.id, 0)">Status</th>
+                                                                <th>App Name</th>
+                                                                <th>URL</th>
+                                                        </tr>
+                                                </thead>
+                                                <tbody id="Advana-Platform-A2ET-data">
+
+                                                                <tr>
+                                                                        <td label="Status" data-status="unknown">UNKNOWN</td>
+                                                                        <td>A2ET Confluence</td>
+                                                                        <td>https://confluence-a2et.advana.us</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td label="Status" data-status="operational">OPERATIONAL</td>
+                                                                        <td>Confluence CSN</td>
+                                                                        <td>https://confluence.boozallencsn.com</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td label="Status" data-status="operational">OPERATIONAL</td>
+                                                                        <td>JIRA</td>
+                                                                        <td>https://jira-a2et.advana.us</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td label="Status" data-status="operational">OPERATIONAL</td>
+                                                                        <td>JIRA CSN</td>
+                                                                        <td>https://jira.boozallencsn.com</td>
+                                                                </tr>
+                                                </tbody>
+                                        </table>
+                                        <button type="button" class="custom-button" onclick="alterTableDisplay(this.nextElementSibling.id, this, `Advana | Platform | Observability`)">Collapse - Advana | Platform | Observability</button>
+                                        <table id="Advana-Platform-Observability-table">
+                                                <thead>
+                                                        <tr>
+                                                                <th colspan="100%">Advana |
+                                                                        Platform |
+                                                                        Observability
+                                                                </th>
+                                                        </tr>
+                                                        <tr>
+                                                                <th onClick="sortTable(this.parentNode.parentNode.nextElementSibling.id, 0)">Status</th>
+                                                                <th>App Name</th>
+                                                                <th>URL</th>
+                                                        </tr>
+                                                </thead>
+                                                <tbody id="Advana-Platform-Observability-data">
+
+                                                                <tr>
+                                                                        <td label="Status" data-status="down">DOWN</td>
+                                                                        <td>Grafana</td>
+                                                                        <td>http://grafana.grafana:80/metrics</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td label="Status" data-status="unknown">UNKNOWN</td>
+                                                                        <td>Prometheus</td>
+                                                                        <td>http://kube-prometheus-stack-prometheus.vcluster-metrics:9090/</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td label="Status" data-status="operational">OPERATIONAL</td>
+                                                                        <td>Loki</td>
+                                                                        <td>http://loki.loki:3100/metrics</td>
+                                                                </tr>
+                                                </tbody>
+                                        </table>
+                                        <button type="button" class="custom-button" onclick="alterTableDisplay(this.nextElementSibling.id, this, `Advana | Platform | Tools`)">Collapse - Advana | Platform | Tools</button>
+                                        <table id="Advana-Platform-Tools-table">
+                                                <thead>
+                                                        <tr>
+                                                                <th colspan="100%">Advana |
+                                                                        Platform |
+                                                                        Tools
+                                                                </th>
+                                                        </tr>
+                                                        <tr>
+                                                                <th onClick="sortTable(this.parentNode.parentNode.nextElementSibling.id, 0)">Status</th>
+                                                                <th>App Name</th>
+                                                                <th>URL</th>
+                                                        </tr>
+                                                </thead>
+                                                <tbody id="Advana-Platform-Tools-data">
+
+                                                                <tr>
+                                                                        <td label="Status" data-status="unknown">UNKNOWN</td>
+                                                                        <td>Canary</td>
+                                                                        <td>https://canary.advana.us/headers</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td label="Status" data-status="operational">OPERATIONAL</td>
+                                                                        <td>Gitlab CSN</td>
+                                                                        <td>https://gitlab.advana.boozallencsn.com/</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td label="Status" data-status="degraded">DEGRADED</td>
+                                                                        <td>Gitlab</td>
+                                                                        <td>https://gitlab.advana.us</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td label="Status" data-status="operational">OPERATIONAL</td>
+                                                                        <td>Single Sign On</td>
+                                                                        <td>https://sso.advana.us</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td label="Status" data-status="operational">OPERATIONAL</td>
+                                                                        <td>Vault</td>
+                                                                        <td>https://vault.advana.us/v1/sys/health</td>
+                                                                </tr>
+                                                </tbody>
+                                        </table>
+
+                                        <button type="button" class="custom-button" onclick="alterTableDisplay(this.nextElementSibling.id, this, `Advana | Web apps | Data and ai ops`)">Collapse - Advana | Web apps | Data and ai ops</button>
+                                        <table id="Advana-Web Apps-Data and AI Ops-table">
+                                                <thead>
+                                                        <tr>
+                                                                <th colspan="100%">Advana |
+                                                                        Web apps |
+                                                                        Data and ai ops
+                                                                </th>
+                                                        </tr>
+                                                        <tr>
+                                                                <th onClick="sortTable(this.parentNode.parentNode.nextElementSibling.id, 0)">Status</th>
+                                                                <th>App Name</th>
+                                                                <th>URL</th>
+                                                        </tr>
+                                                </thead>
+                                                <tbody id="Advana-Web Apps-Data and AI Ops-data">
+
+                                                                <tr>
+                                                                        <td label="Status" data-status="operational">OPERATIONAL</td>
+                                                                        <td>Dcrop</td>
+                                                                        <td>https://dcrop.dev.advana.us</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td label="Status" data-status="operational">OPERATIONAL</td>
+                                                                        <td>EDL Dev</td>
+                                                                        <td>https://edl.dev.advana.us</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td label="Status" data-status="operational">OPERATIONAL</td>
+                                                                        <td>EDL Test</td>
+                                                                        <td>https://edl.test.advana.us</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td label="Status" data-status="operational">OPERATIONAL</td>
+                                                                        <td>Immuta</td>
+                                                                        <td>https://immuta.advana.us</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td label="Status" data-status="operational">OPERATIONAL</td>
+                                                                        <td>IR Test</td>
+                                                                        <td>https://ir.test.advana.us</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td label="Status" data-status="down">DOWN</td>
+                                                                        <td>JexNet Dev</td>
+                                                                        <td>https://jexnet.dev.advana.us</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td label="Status" data-status="operational">OPERATIONAL</td>
+                                                                        <td>JexNet Test</td>
+                                                                        <td>https://jexnet.test.advana.us</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td label="Status" data-status="operational">OPERATIONAL</td>
+                                                                        <td>MRI</td>
+                                                                        <td>https://mri.test.advana.us</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td label="Status" data-status="operational">OPERATIONAL</td>
+                                                                        <td>Orion EM4 Dev</td>
+                                                                        <td>https://orionem4.dev.advana.us</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td label="Status" data-status="operational">OPERATIONAL</td>
+                                                                        <td>Orion JSUB Dev</td>
+                                                                        <td>https://orionjsub.dev.advana.us</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td label="Status" data-status="operational">OPERATIONAL</td>
+                                                                        <td>RDIM Raven</td>
+                                                                        <td>https://raven.dev.advana.us</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td label="Status" data-status="operational">OPERATIONAL</td>
+                                                                        <td>Search Dev</td>
+                                                                        <td>https://search.dev.advana.us/</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td label="Status" data-status="unknown">UNKNOWN</td>
+                                                                        <td>Search Test</td>
+                                                                        <td>https://search.test.advana.us/</td>
+                                                                </tr>
+                                                </tbody>
+                                        </table>
+
+                                        <button type="button" class="custom-button" onclick="alterTableDisplay(this.nextElementSibling.id, this, `Advana | Platform | Darq`)">Collapse - Advana | Platform | Darq</button>
+                                        <table id="advana-platform-darq-table">
+                                                <thead>
+                                                        <tr>
+                                                                <th colspan="100%">Advana |
+                                                                        Platform |
+                                                                        Darq
+                                                                </th>
+                                                        </tr>
+                                                        <tr>
+                                                                <th onClick="sortTable(this.parentNode.parentNode.nextElementSibling.id, 0)">Status</th>
+                                                                <th>App Name</th>
+                                                                <th>URL</th>
+                                                        </tr>
+                                                </thead>
+                                                <tbody id="advana-platform-darq-data">
+
+                                                                <tr>
+                                                                        <td label="Status" data-status="operational">OPERATIONAL</td>
+                                                                        <td>IR Dev</td>
+                                                                        <td>https://ir.dev.advana.us</td>
+                                                                </tr>
+                                                </tbody>
+                                        </table>
+        </section>
+        <section>
+                <article style="padding: 10px;">To get more detailed information via dashboards, visit and login to <a href=http://grafana.cndcompliance.com target="_blank">Grafana</a></article>
+        </section>
+</main>
+<footer>
+<div>
+<picture>
+        <source srcset="./images/logos/cdaoLogo.webp" type="image/webp">
+        <source srcset="./images/logos/cdaoLogo.png" type="image/png">
+        <img src="cdaoLogo.png" alt="DoD Logo">
+</picture>
+<h1> CDAO </h1>
+</div>
+<div class="notification-banner">
+CSN
+</div>
+
+<script defer language="javascript" type="text/javascript"  src="./js/sorttables.js"></script>
+<script defer language="javascript" type="text/javascript"  src="./js/displaytable.js"></script>
+<script defer language="javascript" type="text/javascript"  src="./js/refreshbrowser.js"></script></footer>
+</body>
+</html>
+

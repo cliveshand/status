@@ -71,7 +71,8 @@ Cliveshand@LAPTOP-L43U303E
                                 </tr>
                         </tbody>
                 </table>
-                <caption><h3>Status- as of {{ now.Format "Mon, 02 Jan 2006 15:04:05 MST" }}</h3></caption>
+                <caption><h3> Status - as of Thu, 20 Jun 2024 20:42:01 UTC </h3></caption>
+
 
                                         <button type="button" class="custom-button" onclick="alterTableDisplay(this.nextElementSibling.id, this, `Advana | Platform | A2 et`)">Collapse - Advana | Platform | A2 et</button>
                                         <table id="Advana-Platform-A2ET-table">
